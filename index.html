@@ -1,16 +1,211 @@
 <!DOCTYPE html>
-<html lang="pt">
+<html lang="pt-BR">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-      <link rel="stylesheet" href="style.css">
-    <title>Projeto integrador</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Guia de Acessibilidade Motora e Visual</title>
+  
+  <style>
+    /* RESET E ESTILOS BASE */
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: Arial, Helvetica, sans-serif;
+      font-size: 1.125rem; /* 18px para facilitar a leitura */
+      line-height: 1.6;
+      color: #1a1a1a; /* Alto contraste com o fundo */
+      background-color: #f9f9f9;
+      padding: 20px;
+    }
+
+    /* LINK PARA SALTAR CONTEÚDO (Acessibilidade Motora / Teclado) */
+    .skip-link {
+      position: absolute;
+      top: -40px;
+      left: 0;
+      background: #000;
+      color: #fff;
+      padding: 8px 16px;
+      z-index: 100;
+      text-decoration: none;
+      font-weight: bold;
+    }
+    .skip-link:focus {
+      top: 0;
+    }
+
+    /* FOCO VISÍVEL E DESTACADO (Essencial para navegação por teclado) */
+    :focus-visible {
+      outline: 4px solid #005fcc;
+      outline-offset: 3px;
+    }
+
+    /* CABEÇALHO E NAVEGAÇÃO */
+    header {
+      background-color: #003366;
+      color: #ffffff;
+      padding: 24px;
+      border-radius: 8px;
+      margin-bottom: 24px;
+    }
+
+    header h1 {
+      font-size: 2rem;
+      margin-bottom: 12px;
+    }
+
+    nav ul {
+      list-style: none;
+      display: flex;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    nav a {
+      color: #ffffff;
+      text-decoration: underline;
+      font-weight: bold;
+      padding: 8px 12px; /* Área de toque aumentada */
+      display: inline-block;
+    }
+
+    nav a:hover, nav a:focus {
+      background-color: #ffffff;
+      color: #003366;
+      border-radius: 4px;
+    }
+
+    /* SEÇÕES DE CONTEÚDO */
+    main {
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    section {
+      background: #ffffff;
+      padding: 24px;
+      border-radius: 8px;
+      margin-bottom: 24px;
+      border: 1px solid #ddd;
+    }
+
+    h2 {
+      color: #003366;
+      font-size: 1.5rem;
+      margin-bottom: 16px;
+      border-bottom: 2px solid #003366;
+      padding-bottom: 8px;
+    }
+
+    p {
+      margin-bottom: 16px;
+    }
+
+    ul {
+      margin-left: 24px;
+      margin-bottom: 16px;
+    }
+
+    li {
+      margin-bottom: 8px;
+    }
+
+    /* ÁREAS DE INTERAÇÃO (BOTAO COM ÁREA DE CLIQUE ADEQUADA) */
+    .btn-acao {
+      background-color: #006633;
+      color: #ffffff;
+      font-size: 1.1rem;
+      font-weight: bold;
+      padding: 14px 28px; /* Mínimo de 44x44px de área de toque */
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      margin-top: 12px;
+    }
+
+    .btn-acao:hover {
+      background-color: #004d26;
+    }
+
+    /* RODAPÉ */
+    footer {
+      text-align: center;
+      padding: 16px;
+      color: #555;
+      font-size: 0.95rem;
+    }
+  </style>
 </head>
-<body> 
-<h1>Projeto desenvolvido na disiplina programação no itineraio formativo de matematica</h1> 
-   <div>
-   <img src="imagem.jpg" alt="maquete"> 
-   </div>
-   <p>HTML (HyperText Markup Language) e CSS (Cancel</p>)
+<body>
+
+  <!-- Link de atalho para usuários de teclado pularem a navegação -->
+  <a href="#conteudo-principal" class="skip-link">Pular para o conteúdo principal</a>
+
+  <header role="banner">
+    <h1>Acessibilidade na Web: Motora e Visual</h1>
+    <nav aria-label="Navegação Principal">
+      <ul>
+        <li><a href="#acessibilidade-motora">Acessibilidade Motora</a></li>
+        <li><a href="#acessibilidade-visual">Acessibilidade Visual</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main id="conteudo-principal" tabindex="-1">
+
+    <!-- SEÇÃO: ACESSIBILIDADE MOTORA -->
+    <section id="acessibilidade-motora" aria-labelledby="titulo-motora">
+      <h2 id="titulo-motora">Acessibilidade Motora</h2>
+      <p>
+        A acessibilidade motora refere-se ao projeto de interfaces digitais que podem ser utilizadas por pessoas com limitações físicas, tremores, fraqueza muscular, ausência de membros ou uso de tecnologia assistiva (como acionadores e navegação por teclado).
+      </p>
+      
+      <h3>Boas Práticas para Acessibilidade Motora:</h3>
+      <ul>
+        <li><strong>Navegação total por teclado:</strong> Todos os elementos interativos (links, botões, formulários) devem ser acessíveis via tecla <kbd>Tab</kbd>.</li>
+        <li><strong>Áreas de toque ampliadas:</strong> Botões e links devem ter no mínimo 44x44 pixels para facilitar o clique/toque.</li>
+        <li><strong>Indicadores de foco visíveis:</strong> O elemento selecionado via teclado deve estar nitidamente destacado no ecrã.</li>
+        <li><strong>Sem limite de tempo rígido:</strong> Evitar formulários ou sessões que expiram rapidamente sem opção de extensão.</li>
+      </ul>
+
+      <button type="button" class="btn-acao" onclick="alert('Exemplo de botão com ampla área de toque e foco visível!')">
+        Testar Botão Acessível
+      </button>
+    </section>
+
+    <!-- SEÇÃO: ACESSIBILIDADE VISUAL -->
+    <section id="acessibilidade-visual" aria-labelledby="titulo-visual">
+      <h2 id="titulo-visual">Acessibilidade Visual</h2>
+      <p>
+        A acessibilidade visual garante que conteúdos e funcionalidades sejam compreensíveis para pessoas cegas, com baixa visão, daltonismo ou presbiopia.
+      </p>
+
+      <h3>Boas Práticas para Acessibilidade Visual:</h3>
+      <ul>
+        <li><strong>Texto Alternativo (Alt Text):</strong> Imagens informativas precisam do atributo <code>alt</code> para leitores de tela.</li>
+        <li><strong>Alto Contraste:</strong> A relação de contraste entre texto e fundo deve ser de pelo menos 4.5:1.</li>
+        <li><strong>Tipografia Legível:</strong> Uso de fontes limpas sem serifa e tamanhos de texto redimensionáveis sem quebrar o layout.</li>
+        <li><strong>Não depender apenas da cor:</strong> Informações importantes não devem ser transmitidas apenas por cores (ex: mensagens de erro devem ter ícones e texto explicativo).</li>
+      </ul>
+
+      <p>
+        <strong>Exemplo de imagem com texto alternativo para leitores de tela:</strong>
+      </p>
+      
+      <img src="https://via.placeholder.com/600x200/003366/FFFFFF?text=Simbolos+de+Acessibilidade" 
+           alt="Ilustração mostrando os símbolos internacionais de acessibilidade visual e motora." 
+           style="max-width: 100%; height: auto; border-radius: 4px;">
+    </section>
+
+  </main>
+
+  <footer>
+    <p>Página desenvolvida com foco nas diretrizes WCAG (Web Content Accessibility Guidelines).</p>
+  </footer>
+
 </body>
 </html>
