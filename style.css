@@ -1,4 +1,4 @@
-* ==========================================================================
+/* ==========================================================================
    RESET & CONFIGURAÇÕES GERAIS (Acessibilidade Visual)
    ========================================================================== */
 *, *::before, *::after {
@@ -54,10 +54,8 @@ header {
   color: #ffffff;
   padding: 28px 24px;
   border-radius: 8px;
-  margin-bottom: 30px;
   max-width: 900px;
-  margin-left: auto;
-  margin-right: auto;
+  margin: 0 auto 30px auto;
 }
 
 header h1 {
@@ -186,4 +184,14 @@ footer {
   padding: 20px;
   color: #444444;
   font-size: 1rem;
+}
+
+/* Respeita preferências de redução de movimento do sistema do usuário */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
 }
