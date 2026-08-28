@@ -6,6 +6,30 @@
   <title>Guia de Acessibilidade Motora e Visual</title>
   
   <style>
+    /* VARIAVEIS DE COR PARA SUPORTE A TEMAS / ALTO CONTRASTE */
+    :root {
+      --bg-color: #f9f9f9;
+      --card-bg: #ffffff;
+      --text-color: #1a1a1a;
+      --primary-color: #003366;
+      --border-color: #dddddd;
+      --focus-outline: #005fcc;
+      --success-color: #006633;
+      --error-color: #c00000;
+    }
+
+    /* TEMA DE ALTO CONTRASTE (Ativado via JS) */
+    body.alto-contraste {
+      --bg-color: #000000;
+      --card-bg: #121212;
+      --text-color: #ffff00; /* Amarelo no preto garante alto contraste */
+      --primary-color: #ffff00;
+      --border-color: #ffff00;
+      --focus-outline: #ffffff;
+      --success-color: #00ff00;
+      --error-color: #ff3333;
+    }
+
     /* RESET E ESTILOS BASE */
     * {
       box-sizing: border-box;
@@ -17,8 +41,8 @@
       font-family: Arial, Helvetica, sans-serif;
       font-size: 1.125rem; /* 18px para facilitar a leitura */
       line-height: 1.6;
-      color: #1a1a1a; /* Alto contraste com o fundo */
-      background-color: #f9f9f9;
+      color: var(--text-color);
+      background-color: var(--bg-color);
       padding: 20px;
     }
 
@@ -38,19 +62,23 @@
       top: 0;
     }
 
-    /* FOCO VISÍVEL E DESTACADO (Essencial para navegação por teclado) */
+    /* FOCO VISÍVEL E DESTACADO */
     :focus-visible {
-      outline: 4px solid #005fcc;
+      outline: 4px solid var(--focus-outline);
       outline-offset: 3px;
     }
 
     /* CABEÇALHO E NAVEGAÇÃO */
     header {
-      background-color: #003366;
+      background-color: var(--primary-color);
       color: #ffffff;
       padding: 24px;
       border-radius: 8px;
       margin-bottom: 24px;
+    }
+
+    body.alto-contraste header {
+      color: #000000;
     }
 
     header h1 {
@@ -66,11 +94,10 @@
     }
 
     nav a {
-      color: #ffffff;
+      color: inherit;
       text-decoration: underline;
       font-weight: bold;
-      padding: 8px 12px; /* Área de toque aumentada */
-      display: inline-block;
+      padding: 8px 12px;
     }
 
     nav a:hover, nav a:focus {
@@ -86,19 +113,24 @@
     }
 
     section {
-      background: #ffffff;
+      background: var(--card-bg);
       padding: 24px;
       border-radius: 8px;
       margin-bottom: 24px;
-      border: 1px solid #ddd;
+      border: 2px solid var(--border-color);
     }
 
     h2 {
-      color: #003366;
+      color: var(--primary-color);
       font-size: 1.5rem;
       margin-bottom: 16px;
-      border-bottom: 2px solid #003366;
+      border-bottom: 2px solid var(--primary-color);
       padding-bottom: 8px;
+    }
+
+    h3 {
+      margin-top: 20px;
+      margin-bottom: 12px;
     }
 
     p {
@@ -114,28 +146,67 @@
       margin-bottom: 8px;
     }
 
-    /* ÁREAS DE INTERAÇÃO (BOTAO COM ÁREA DE CLIQUE ADEQUADA) */
+    /* BOTÕES ACESSÍVEIS */
     .btn-acao {
-      background-color: #006633;
+      background-color: var(--primary-color);
       color: #ffffff;
       font-size: 1.1rem;
       font-weight: bold;
       padding: 14px 28px; /* Mínimo de 44x44px de área de toque */
-      border: none;
+      border: 2px solid transparent;
       border-radius: 6px;
       cursor: pointer;
       margin-top: 12px;
+      display: inline-block;
     }
 
-    .btn-acao:hover {
-      background-color: #004d26;
+    body.alto-contraste .btn-acao {
+      color: #000000;
+    }
+
+    /* EXEMPLO PARA DALTONISMO: ALERTAS QUE NÃO DEPENDEM APENAS DE COR */
+    .mensagem-status {
+      padding: 12px 16px;
+      border-radius: 6px;
+      margin-top: 12px;
+      font-weight: bold;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    /* Sucesso: Cor + Ícone + Borda tracejada para diferenciação visual */
+    .status-sucesso {
+      background-color: #e6f4ea;
+      color: var(--success-color);
+      border: 2px dashed var(--success-color);
+    }
+
+    /* Erro: Cor + Ícone + Borda contínua espessa */
+    .status-erro {
+      background-color: #fce8e6;
+      color: var(--error-color);
+      border: 2px solid var(--error-color);
+    }
+
+    /* GALERIA DE IMAGENS */
+    .imagem-container {
+      margin-top: 16px;
+      margin-bottom: 16px;
+    }
+
+    .imagem-container img {
+      max-width: 100%;
+      height: auto;
+      border-radius: 4px;
+      border: 1px solid var(--border-color);
     }
 
     /* RODAPÉ */
     footer {
       text-align: center;
       padding: 16px;
-      color: #555;
+      color: var(--text-color);
       font-size: 0.95rem;
     }
   </style>
@@ -151,28 +222,36 @@
       <ul>
         <li><a href="#acessibilidade-motora">Acessibilidade Motora</a></li>
         <li><a href="#acessibilidade-visual">Acessibilidade Visual</a></li>
+        <li><a href="#exemplos-daltonismo">Práticas para Daltonismo</a></li>
       </ul>
     </nav>
   </header>
 
   <main id="conteudo-principal" tabindex="-1">
 
+    <!-- BARRA DE FERRAMENTAS DE ACESSIBILIDADE VISUAL -->
+    <section aria-label="Ferramentas de Acessibilidade Visual">
+      <h2>Ajustes Visuais</h2>
+      <button type="button" class="btn-acao" id="btn-contraste" onclick="alternarContraste()">
+        Alternar Alto Contraste
+      </button>
+    </section>
+
     <!-- SEÇÃO: ACESSIBILIDADE MOTORA -->
     <section id="acessibilidade-motora" aria-labelledby="titulo-motora">
       <h2 id="titulo-motora">Acessibilidade Motora</h2>
       <p>
-        A acessibilidade motora refere-se ao projeto de interfaces digitais que podem ser utilizadas por pessoas com limitações físicas, tremores, fraqueza muscular, ausência de membros ou uso de tecnologia assistiva (como acionadores e navegação por teclado).
+        A acessibilidade motora refere-se ao projeto de interfaces digitais que podem ser utilizadas por pessoas com limitações físicas, tremores, fraqueza muscular ou que usam navegação exclusivamente por teclado e acionadores.
       </p>
       
       <h3>Boas Práticas para Acessibilidade Motora:</h3>
       <ul>
-        <li><strong>Navegação total por teclado:</strong> Todos os elementos interativos (links, botões, formulários) devem ser acessíveis via tecla <kbd>Tab</kbd>.</li>
-        <li><strong>Áreas de toque ampliadas:</strong> Botões e links devem ter no mínimo 44x44 pixels para facilitar o clique/toque.</li>
-        <li><strong>Indicadores de foco visíveis:</strong> O elemento selecionado via teclado deve estar nitidamente destacado no ecrã.</li>
-        <li><strong>Sem limite de tempo rígido:</strong> Evitar formulários ou sessões que expiram rapidamente sem opção de extensão.</li>
+        <li><strong>Navegação total por teclado:</strong> Todos os elementos interativos devem ser acessíveis via tecla <kbd>Tab</kbd>.</li>
+        <li><strong>Áreas de toque ampliadas:</strong> Botões e links devem ter no mínimo 44x44 pixels para facilitar o clique.</li>
+        <li><strong>Indicadores de foco visíveis:</strong> O elemento selecionado via teclado deve estar nitidamente destacado.</li>
       </ul>
 
-      <button type="button" class="btn-acao" onclick="alert('Exemplo de botão com ampla área de toque e foco visível!')">
+      <button type="button" class="btn-acao" onclick="alert('Botão acionado com sucesso!')">
         Testar Botão Acessível
       </button>
     </section>
@@ -181,24 +260,50 @@
     <section id="acessibilidade-visual" aria-labelledby="titulo-visual">
       <h2 id="titulo-visual">Acessibilidade Visual</h2>
       <p>
-        A acessibilidade visual garante que conteúdos e funcionalidades sejam compreensíveis para pessoas cegas, com baixa visão, daltonismo ou presbiopia.
+        A acessibilidade visual garante que conteúdos sejam compreensíveis para pessoas cegas, com baixa visão, daltonismo ou presbiopia.
       </p>
 
       <h3>Boas Práticas para Acessibilidade Visual:</h3>
       <ul>
-        <li><strong>Texto Alternativo (Alt Text):</strong> Imagens informativas precisam do atributo <code>alt</code> para leitores de tela.</li>
+        <li><strong>Texto Alternativo (Alt Text):</strong> Imagens informativas precisam do atributo <code>alt</code> descritivo.</li>
         <li><strong>Alto Contraste:</strong> A relação de contraste entre texto e fundo deve ser de pelo menos 4.5:1.</li>
-        <li><strong>Tipografia Legível:</strong> Uso de fontes limpas sem serifa e tamanhos de texto redimensionáveis sem quebrar o layout.</li>
-        <li><strong>Não depender apenas da cor:</strong> Informações importantes não devem ser transmitidas apenas por cores (ex: mensagens de erro devem ter ícones e texto explicativo).</li>
+        <li><strong>Redimensionamento de Texto:</strong> O layout deve permitir aumento de fonte sem quebrar elementos na tela.</li>
       </ul>
 
+      <div class="imagem-container">
+        <p><strong>Exemplo de imagem 1 com texto alternativo:</strong></p>
+        <img src="https://share.google/TUwtJOCou0wuuHOzE" 
+             alt="Ilustração mostrando os símbolos internacionais de acessibilidade visual e motora." />
+      </div>
+
+      <div class="imagem-container">
+        <p><strong>Exemplo de imagem 2 (adicionada):</strong></p>
+        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS7OHdhdlFFZQe1ttXUMg1-fdI8lfLMg5rk00t3zdAKT0UqDuZEPeWveEYG&s=10" 
+             alt="Ícone informativo referente às diretrizes de acessibilidade visual." />
+      </div>
+    </section>
+
+    <!-- SEÇÃO: EXEMPLOS ESPECÍFICOS PARA DALTONISMO -->
+    <section id="exemplos-daltonismo" aria-labelledby="titulo-daltonismo">
+      <h2 id="titulo-daltonismo">Acessibilidade para Daltonismo</h2>
       <p>
-        <strong>Exemplo de imagem com texto alternativo para leitores de tela:</strong>
+        Pessoas com daltonismo possuem dificuldade em distinguir certas cores (como verde e vermelho ou azul e amarelo). Por isso, <strong>a cor nunca deve ser o único meio de transmitir informação</strong>.
       </p>
-      
-      <img src="https://share.google/TUwtJOCou0wuuHOzE" 
-           alt="Ilustração mostrando os símbolos internacionais de acessibilidade visual e motora." 
-           style="max-width: 100%; height: auto; border-radius: 4px;">
+
+      <h3>Exemplo de Comunicação de Status Acessível:</h3>
+      <p>Abaixo, os alertas utilizam formas, bordas e ícones textuais além das cores para indicar o estado:</p>
+
+      <!-- Sucesso: usa cor verde + ícone de check + borda tracejada -->
+      <div class="mensagem-status status-sucesso" role="status">
+        <span aria-hidden="true">✔</span>
+        <span>Sucesso: Formulário enviado com sucesso!</span>
+      </div>
+
+      <!-- Erro: usa cor vermelha + ícone de X + borda contínua espessa -->
+      <div class="mensagem-status status-erro" role="alert">
+        <span aria-hidden="true">✖</span>
+        <span>Erro: O campo "E-mail" é obrigatório e precisa ser preenchido.</span>
+      </div>
     </section>
 
   </main>
@@ -207,5 +312,11 @@
     <p>Página desenvolvida com foco nas diretrizes WCAG (Web Content Accessibility Guidelines).</p>
   </footer>
 
+  <script>
+    function alternarContraste() {
+      document.body.classList.toggle('alto-contraste');
+    }
+  </script>
+
 </body>
-</html>
+</html>  <!
